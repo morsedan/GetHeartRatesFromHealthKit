@@ -60,5 +60,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>Used to retrieve heart rates from workouts</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Used to retrieve heart rates from workouts</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Used to retrieve heart rates from workouts</string>
 </dict>
 </plist>
