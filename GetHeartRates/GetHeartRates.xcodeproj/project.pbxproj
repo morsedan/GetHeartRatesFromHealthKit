@@ -15,6 +15,8 @@
 		C0A06599249989CD00B7A3FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A06597249989CD00B7A3FA /* LaunchScreen.storyboard */; };
 		C0A065A124998B8700B7A3FA /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A065A024998B8700B7A3FA /* HealthKitSetupAssistant.swift */; };
 		C0A065A5249990B700B7A3FA /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A065A4249990B700B7A3FA /* HealthKit.framework */; };
+		C0A065A7249A603400B7A3FA /* HRDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A065A6249A603400B7A3FA /* HRDataStore.swift */; };
+		C0C2211A249AA01800A985E0 /* HeartRatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C22119249AA01800A985E0 /* HeartRatesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		C0A065A024998B8700B7A3FA /* HealthKitSetupAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSetupAssistant.swift; sourceTree = "<group>"; };
 		C0A065A2249990B700B7A3FA /* GetHeartRates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GetHeartRates.entitlements; sourceTree = "<group>"; };
 		C0A065A4249990B700B7A3FA /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		C0A065A6249A603400B7A3FA /* HRDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRDataStore.swift; sourceTree = "<group>"; };
+		C0C22119249AA01800A985E0 /* HeartRatesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRatesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				C0A0658C249989CC00B7A3FA /* AppDelegate.swift */,
 				C0A0658E249989CC00B7A3FA /* SceneDelegate.swift */,
 				C0A06590249989CC00B7A3FA /* ViewController.swift */,
+				C0C22119249AA01800A985E0 /* HeartRatesTableViewController.swift */,
+				C0A065A6249A603400B7A3FA /* HRDataStore.swift */,
 				C0A065A024998B8700B7A3FA /* HealthKitSetupAssistant.swift */,
 				C0A06592249989CC00B7A3FA /* Main.storyboard */,
 				C0A06595249989CD00B7A3FA /* Assets.xcassets */,
@@ -155,10 +161,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0C2211A249AA01800A985E0 /* HeartRatesTableViewController.swift in Sources */,
 				C0A06591249989CC00B7A3FA /* ViewController.swift in Sources */,
 				C0A065A124998B8700B7A3FA /* HealthKitSetupAssistant.swift in Sources */,
 				C0A0658D249989CC00B7A3FA /* AppDelegate.swift in Sources */,
 				C0A0658F249989CC00B7A3FA /* SceneDelegate.swift in Sources */,
+				C0A065A7249A603400B7A3FA /* HRDataStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

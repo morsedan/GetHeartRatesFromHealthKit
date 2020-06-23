@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import HealthKit
 
 class ViewController: UIViewController {
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         authorizeHealthKit()
+        loadAndPrintHeartRates()
     }
     
     private func authorizeHealthKit() {
@@ -28,7 +32,21 @@ class ViewController: UIViewController {
     }
     
     private func loadAndPrintHeartRates() {
-        
+        HRDataStore.getHeartRates { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case.success(let heartRates):
+                print("Got \(heartRates.count) heart rates.")
+                print("\(heartRates.first!)")
+//                let unit = HKUnit.
+                var total = 0
+//                for heartRate in heartRates {
+////                    print(heartRate)
+//                    total += heartRate.
+//                }
+            }
+        }
     }
 
 }
