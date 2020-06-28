@@ -6,18 +6,41 @@
 //  Copyright © 2020 morse. All rights reserved.
 //
 
+let sampleWorkouts = """
+
+From Apple Watch:
+<HKWorkout> (13)  6ED283F6-5EE3-4BF6-8AFF-30E2B641F6C0 "Daniel’s Apple Watch" (6.0), "Watch3,4" (6.0)"Apple Watch" metadata: {
+    HKAverageMETs = "5.96718 kcal/hr\\U00b7kg";
+    HKElevationAscended = "1798 cm";
+    HKIndoorWorkout = 0;
+    HKTimeZone = "America/Los_Angeles";
+    HKWeatherHumidity = "63 %";
+    HKWeatherTemperature = "58 degF";
+} (2020-06-08 20:20:03 -0700 - 2020-06-08 20:38:21 -0700)
+
+From Elemnt:
+<HKWorkout> (13)  6D01D5CB-8483-4032-B273-7CFAE533FBF8 "ELEMNT" (1543), "iPhone11,2" (12.3.1) (2019-08-01 17:18:28 -0700 - 2019-08-01 17:29:28 -0700), <HKWorkout> (13)  2CBAD673-FFDF-44B9-8277-38BF1A346782 "ELEMNT" (1543), "iPhone11,2" (12.3.1) (2019-08-01 17:39:28 -0700 - 2019-08-01 17:59:05 -0700), <HKWorkout> (13)  3B185002-C87B-4412-A08F-5440EF736828 "ELEMNT" (1543), "iPhone11,2" (12.3.1) (2019-08-01 18:00:55 -0700 - 2019-08-01 18:05:08 -0700), <HKWorkout> (13)  78A6C62E-8670-4A1F-BF22-EFB5E91F237B "Lose It!" (1), "iPhone11,2" (12.3.1)metadata: {
+    HKExternalUUID = "466CAF29-C342-4BFD-B191-E67335538BB4";
+} (2019-08-01 22:59:59 -0700 - 2019-08-01 22:59:59 -0700)
+"""
+
 import UIKit
 import HealthKit
 
 class HeartRatesTableViewController: UITableViewController {
     
     var readings: [HKSample] = []
+    var workouts: [HKWorkout]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         authorizeHealthKit()
-        loadAndDisplayHeartRates()
+//        loadAndDisplayHeartRates()
+        loadAndPrintWorkouts { workouts, error in
+            print(workouts ?? "no workouts", error ?? "no error", workouts?.count ?? "0")
+            print("here\n", workouts?.last ?? "no workouts")
+        }
     }
     
     private func authorizeHealthKit() {
@@ -38,21 +61,33 @@ class HeartRatesTableViewController: UITableViewController {
                 print(error)
             case.success(let heartRates):
                 print("Got \(heartRates.count) heart rates.")
-                print("\(heartRates.first!)")
+                print("\(String(describing: heartRates.first))")
                 self.readings = heartRates
                 self.tableView.reloadData()
-                var total = 0
-                //                for heartRate in heartRates {
-                ////                    print(heartRate)
-                //                    total += heartRate.
-                //                }
             }
         }
     }
     
-    func loadAndPrintWorkouts() {
+    func loadAndPrintWorkouts(completion: @escaping ([HKWorkout]?, Error?) -> Void) {
+        let workoutPredicate = HKQuery.predicateForWorkouts(with: .cycling)
+        let sourcePredicate = HKQuery.predicateForObjectsWithNoCorrelation()
+        let compound = NSCompoundPredicate(andPredicateWithSubpredicates: [workoutPredicate, sourcePredicate])
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: true)
         
+        let query = HKSampleQuery(sampleType: .workoutType(), predicate: compound, limit: 0, sortDescriptors: [sortDescriptor]) { query, samples, error in
+            DispatchQueue.main.async {
+                guard let samples = samples as? [HKWorkout], error == nil else {
+                    completion(nil, error)
+                    return
+                }
+                completion(samples, nil)
+            }
+        }
+        
+        HKHealthStore().execute(query)
     }
+    
+    
     
     // MARK: - Table view data source
     

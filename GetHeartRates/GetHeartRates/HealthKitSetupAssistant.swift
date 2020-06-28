@@ -27,7 +27,7 @@ class HealthKitSetupAssistant {
             return
         }
         
-        let healthKitTypesToRead: Set<HKObjectType> = [heartRate]
+        let healthKitTypesToRead: Set<HKObjectType> = [heartRate, HKObjectType.workoutType()]
         
         HKHealthStore().requestAuthorization(toShare: nil, read: healthKitTypesToRead) { (success, error) in
             if let error = error {
