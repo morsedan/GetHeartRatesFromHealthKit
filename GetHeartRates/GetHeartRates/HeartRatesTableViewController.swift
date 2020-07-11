@@ -87,8 +87,6 @@ class HeartRatesTableViewController: UITableViewController {
         HKHealthStore().execute(query)
     }
     
-    
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
